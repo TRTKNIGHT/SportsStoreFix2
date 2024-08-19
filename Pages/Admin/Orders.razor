@@ -1,0 +1,51 @@
+﻿@page "/admin/orders"
+@inherits OwningComponentBase<IOrderRepository>
+
+<OrderTable TableTitle="Unshipped Orders" ButtonLabel="Ship" OrderSelected="ShipOrder"
+        Orders="UnshippedOrders">
+</OrderTable>
+<OrderTable TableTitle="Shipped Orders" ButtonLabel="Reset" Orders="ShippedOrders" 
+    OrderSelected="ResetOrder">
+</OrderTable>
+<button class="btn btn-info" @onclick="@(e => UpdateData())">Update Tables</button>
+
+@code
+{
+    // Sets up a dependency on the IOrderRepository
+    public IOrderRepository Repository => Service;
+
+    // Sets up lists for all orders and shipped and un-shipped orders
+    public IEnumerable<Order> AllOrders { get; set; } = Enumerable.Empty<Order>();
+    public IEnumerable<Order> UnshippedOrders { get; set; } = Enumerable.Empty<Order>();
+    public IEnumerable<Order> ShippedOrders { get; set; } = Enumerable.Empty<Order>();
+
+    // Is executed as soon as the page is loaded
+    protected async override Task OnInitializedAsync()
+    {
+        await UpdateData();
+    }
+
+    // First initializes the 'AllOrders' List
+    // then sets up the other two based on the repository
+    protected async Task UpdateData()
+    {
+        AllOrders = await Repository.Orders.ToListAsync();
+        UnshippedOrders = AllOrders.Where(o => o.Shipped == false);
+        ShippedOrders = AllOrders.Where(o => o.Shipped == true);
+    }
+
+    // Ships and (Un)Ships the specified order
+    public void ShipOrder(int id) => UpdateOrder(id, true);
+    public void ResetOrder(int id) => UpdateOrder(id, false);
+
+    // Sets the shipped status (enum) of the specified order
+    private void UpdateOrder(int id, bool shipValue)
+    {
+        Order? order = Repository.Orders.FirstOrDefault(o => o.OrderID == id);
+        if (order != null)
+        {
+            order.Shipped = shipValue;
+            Repository.SaveOrder(order);
+        }
+    }
+}

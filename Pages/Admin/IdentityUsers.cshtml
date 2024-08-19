@@ -1,0 +1,26 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@model IdentityUsersModel
+
+<h3 class="bg-primary text-white text-center p-2">Users</h3>
+
+<table class="table table-ms table-stripped table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.AdminUser.UserName</td>
+            <td>@Model.AdminUser.Email</td>
+            <td>@Model.AdminUser.PhoneNumber</td>
+        </tr>
+    </tbody>
+</table>
+
+@functions
+{}

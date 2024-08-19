@@ -1,0 +1,68 @@
+﻿@model Product
+@{ string imageString = $"/images/img{Model.ProductID}.jpg"; }
+@{ Layout = null; }
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Product Info</title>
+        <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="bg-dark text-white p-2">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col navbar-brand">SPORTS STORE</div>
+                    <div class="col-6 navbar-text text-end">
+                        <vc:cart-summary />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-1 p-1">
+            <div class="col-3">
+                <div class="text-center"><a href="@imageString">
+                <img src="@imageString" width="337px" />
+                </a></div>
+            </div>
+            <div class="col-9">
+                <table class="table table-striped table-sm table-bordered">
+                    <tbody>
+                        <tr><th>Name</th><td>@Model.Name</td></tr>
+                        <tr><th>Description</th><td>@Model.Description</td></tr>
+                        <tr><th>Category</th><td>@Model.Category</td></tr>
+                        <tr><th>Price</th><td>@Model.Price.ToString("c")</td></tr>
+                    </tbody>
+                </table>
+                <div class="button-container">
+                    <form id="@Model.ProductID" asp-page="/cart" method="post">
+                        <input type="hidden" asp-for="@Model.ProductID" />
+                        <input type="hidden" name="returnUrl"
+                                value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                        <div class="button-container">
+                            <button type="submit"
+                                    class="btn btn-success btn-sm pull-left">
+                                Add To Cart
+                            </button>
+                            <a class="btn btn-danger btn-sm" asp-controller="Home"
+                                    asp-action="Index">
+                                Back
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+@{
+    if (!ViewContext.HttpContext.Request.Headers["referer"].ToString().Contains("Cart"))
+    {
+        string url = ViewContext.HttpContext.Request.Headers["referer"].ToString();
+    }
+}
+

@@ -1,0 +1,21 @@
+﻿<Router AppAssembly="typeof(Program).Assembly">
+    <Found>
+        <RouteView RouteData="@context" DefaultLayout="typeof(AdminLayout)" />
+    </Found>
+    <NotFound>
+        <h4 class="bg-danger text-white text-center p-2">
+            No Matching Route Found
+        </h4>
+    </NotFound>
+</Router>
+
+<!-- In this example the 'RouteData' element contains info about the rendered page and is automatically -->
+<!-- populated by the 'Router' element-->
+<!-- The info within 'RouteData' is things like : The template of the route e.g. /Index/{Id}
+                                                  The parameters in the extracted from the URL e.g. Id
+                                                  The type of the component that corresponds to the URL
+-->
+<!-- The 'RouteView' element displays the given Razor page -->
+<!-- Note that the differnce between the 'component' element and the 'RouteView' element-->
+<!-- is that the formmer renders a Razor component (kinda like a reference) but the latter -->
+<!-- dispalys it directly -->
