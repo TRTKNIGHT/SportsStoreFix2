@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using SportsStore.Models;
+using SportsStore.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 
 builder.Services.AddScoped<IStoreRepository, EFStoreRepository>();
 builder.Services.AddScoped<IOrderRepository, EFOrderRepository>();
+builder.Services.AddScoped<IFileService, FileService>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
