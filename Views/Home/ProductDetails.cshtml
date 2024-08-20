@@ -1,5 +1,4 @@
 ﻿@model Product
-@{ string imageString = $"/images/img{Model.ProductID}.jpg"; }
 @{ Layout = null; }
 
 <!DOCTYPE html>
@@ -24,8 +23,8 @@
         </div>
         <div class="row m-1 p-1">
             <div class="col-3">
-                <div class="text-center"><a href="@imageString">
-                <img src="@imageString" width="337px" />
+                <div class="text-center"><a href="@Model.Image">
+                <img src="@Model.Image" width="337px" />
                 </a></div>
             </div>
             <div class="col-9">
