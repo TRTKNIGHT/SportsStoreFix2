@@ -11,7 +11,9 @@
     <div class="bg-dark text-white p-2">
         <div class="container-fluid">
             <div class="row">
-                <div class="col navbar-brand">SPORTS STORE</div>
+                <div class="col navbar-brand">
+                    <a asp-controller="Home" asp-action="Index" asp-route-productPage="1" asp-route-category="@null">SPORTS STORE</a>
+                </div>
                 <div class="col-6 navbar-text text-end">
                     <vc:cart-summary />
                 </div>
