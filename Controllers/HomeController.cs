@@ -47,5 +47,21 @@ namespace SportsStore.Controllers
             return View("ProductDetails", product);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddProduct(Product product, IFormFile imageFile)
+        {
+            if ( imageFile != null && imageFile.Length > 0)
+            {
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", imageFile.Name);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(stream);
+                }
+
+                product.Image = "/images" + imageFile.Name;
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

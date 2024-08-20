@@ -37,9 +37,7 @@
         <InputNumber class="form-control" @bind-Value="Product.Price" />
     </div>
     <div class="form-control">
-        <label>Image</label>
-        <ValidationMessage For="@(() => Product.Image)" />
-        <input type="file" class="form-control" @bind-value="Product.Image" />
+        <InputFile OnChange="HandleFileSelected" />
     </div>
     <div class="mt-2">
         <button type="submit" class="btn btn-@ThemeColor">Save</button>
@@ -65,6 +63,13 @@
     // The product you're looking for
     public Product Product { get; set; } = new Product();
 
+    public IBrowserFile selectedFile;
+
+    private void HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        selectedFile = e.File;
+    }
+
     // Initialize the Prodcut you're looking for
     protected override void OnParametersSet()
     {
@@ -75,8 +80,19 @@
     }
 
     // Does what it says
-    public void SaveProduct()
+    public async Task SaveProduct()
     {
+        if (selectedFile != null)
+        {
+            var filePath = Path.Combine("wwwroot/images", selectedFile.Name);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await selectedFile.OpenReadStream().CopyToAsync(stream);
+            }
+
+            Product.Image = "/images/" + selectedFile.Name;
+        }
+
         if (Id == 0)
         {
             Repository.CreateProduct(Product);
