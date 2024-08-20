@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SportsStoreFix2.Migrations.AppIdentityDb
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class AppIdentity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -12,8 +12,8 @@ using SportsStore.Models;
 namespace SportsStoreFix2.Migrations.AppIdentityDb
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20240818182554_Initial")]
-    partial class Initial
+    [Migration("20240819065936_AppIdentity")]
+    partial class AppIdentity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

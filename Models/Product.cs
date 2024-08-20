@@ -21,5 +21,8 @@ namespace SportsStore.Models
 
         [Required(ErrorMessage = "Please specify a category")]
         public string Category { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Please upload an image for the product")]
+        public string? Image { get; set; }
     }
 }
